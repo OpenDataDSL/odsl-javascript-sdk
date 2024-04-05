@@ -1,0 +1,9 @@
+# dotenv environment variables file
+.env
+.env.test
+
+# VSCode directories
+.vscode/
+
+# Test directory
+test/

@@ -1,11 +1,12 @@
 {
   "name": "odsl-javascript-sdk",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Javascript SDK for OpenDataDSL",
   "main": "src/sdk.js",
   "scripts": {
-    "test": "mocha test/test.js"
+    "test": "mocha test/test.js",
+    "npm:publish": "npm publish"
   },
   "repository": {
     "type": "git",
