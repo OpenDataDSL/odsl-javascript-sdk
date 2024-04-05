@@ -1,0 +1,35 @@
+{
+  "name": "odsl-javascript-sdk",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Javascript SDK for OpenDataDSL",
+  "main": "src/sdk.js",
+  "scripts": {
+    "test": "mocha test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OpenDataDSL/odsl-javascript-sdk.git"
+  },
+  "keywords": [
+    "odsl",
+    "opendata",
+    "opendatadsl",
+    "dsl"
+  ],
+  "author": "Colin Hartley <colin.hartley@opendatadsl.com> (https://github.com/OpenDataDSL)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/OpenDataDSL/odsl-javascript-sdk/issues"
+  },
+  "homepage": "https://github.com/OpenDataDSL/odsl-javascript-sdk#readme",
+  "dependencies": {
+    "@azure/msal-browser": "^3.11.1",
+    "@azure/msal-node": "^2.6.6",
+    "mocha": "^10.4.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
