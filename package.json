@@ -1,11 +1,12 @@
 {
   "name": "odsl-javascript-sdk",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Javascript SDK for OpenDataDSL",
   "main": "src/sdk.js",
   "scripts": {
     "test": "mocha test/test.js",
+    "testUpdate": "mocha test/testUpdate.js",
     "npm:publish": "npm publish"
   },
   "repository": {
@@ -25,12 +26,11 @@
   },
   "homepage": "https://github.com/OpenDataDSL/odsl-javascript-sdk#readme",
   "dependencies": {
-    "@azure/msal-browser": "^3.11.1",
     "@azure/msal-node": "^2.6.6",
-    "mocha": "^10.4.0",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
+    "mocha": "^10.4.0",
     "dotenv": "^16.4.5"
   }
 }

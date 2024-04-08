@@ -4,7 +4,7 @@ The Javascript SDK for the [OpenDataDSL](https://opendatadsl.com) data managemen
 ## Installation
 You can install the ODSL Javascript SDK from [npm](https://www.npmjs.com/package/odsl-javascript-sdk):
 
-    npm i odsl-javascipt-sdk
+    npm i odsl-javascript-sdk
 
 ## About
 This javascript SDK for OpenDataDSL has the following features:
@@ -40,36 +40,35 @@ ODSL.loginWithSecret(config).then(function(odsl) {
 ### Finding master data
 
 ```js
-objects = ODSL.list('object', 'public', 'source=ECB')
-# objects is a JSON object wrapper containing status, statusText and body
-print(objects.body[0])
+objects = ODSL.list('object', 'public', {"source":"ECB"})
+print(objects[0])
 ```
 
 ### Getting master data
 
 ```js
 obj = ODSL.get('object', 'public', '#ECB')
-print(obj.body['description'])
+print(obj['description'])
 ```
 
 ### Getting a timeseries
 ```js
 ts = ODSL.get('data', 'public', '#ABN_FX.EURUSD:SPOT')
-print(ts.body)
+print(ts)
 ```
 
 ### Updating some private master data
 ```js
-var = {
-    '_id': 'AAA.PYTHON',
-    'name': 'Python Example'
+var body = {
+	"_id":"AAA.JS",
+	"name": "Javascript Update Object"
 }
-ODSL.update('object', 'private', var)
+ODSL.update('object', 'private', body)
 ```
 
 ### Reading and updating some private master data
 ```js
 po = ODSL.get('object', 'private', 'AAA.TEST')
-po.body['description'] = 'Updated from Javascript'
-ODSL.update('object', 'private', po.body)
+po['description'] = 'Updated from Javascript'
+ODSL.update('object', 'private', po)
 ```

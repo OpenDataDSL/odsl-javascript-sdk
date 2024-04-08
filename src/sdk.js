@@ -45,23 +45,16 @@ export default class ODSL {
 	get(service, source, id) {
 		try {
 			var xhttp = new XMLHttpRequest();
-			var url = this.host + service + "/v1/" + source + "/" + id;
+			id = encodeURIComponent(id);
+			var url = new URL(this.host + service + "/v1/" + source + "/" + id);
 			xhttp.open("GET", url, false);
 			xhttp.setRequestHeader("Authorization", "Bearer " + this.token);
 			xhttp.responseType = "json";
 			xhttp.send();
-			if (xhttp.status != 200) {
-				return {
-					status: xhttp.status,
-					statusText: xhttp.getResponseHeader("x-odsl-error"),
-					body: undefined
-				};	
+			if (xhttp.status < 200 || xhttp.status >= 300) {
+				throw xhttp.getResponseHeader("x-odsl-error");
 			}
-			return {
-				status: xhttp.status,
-				statusText: xhttp.statusText,
-				body: JSON.parse(xhttp.responseText)
-			};
+			return JSON.parse(xhttp.responseText);
 		} catch (err) {
 			console.log("GET request Failed: " + err);			
 		}
@@ -69,26 +62,54 @@ export default class ODSL {
 	getAsync(service, source, id, callback) {
 		try {
 			var xhttp = new XMLHttpRequest();
-			var url = this.host + service + "/v1/" + source + "/" + id;
+			id = encodeURIComponent(id);
+			var url = new URL(this.host + service + "/v1/" + source + "/" + id);
 			xhttp.open("GET", url);
 			xhttp.setRequestHeader("Authorization", "Bearer " + this.token);
 			xhttp.responseType = "json";
 			xhttp.send();
 			xhttp.onload = function() {
-				if (xhttp.status != 200) {
-					callback({
-						status: xhttp.status,
-						statusText: xhttp.getResponseHeader("x-odsl-error"),
-						body: undefined
-					});	
+				if (xhttp.status < 200 || xhttp.status >= 300) {
+					throw xhttp.getResponseHeader("x-odsl-error");
 				} else {
-					callback({
-						status: xhttp.status,
-						statusText: xhttp.statusText,
-						body: JSON.parse(xhttp.responseText)
-					});
+					callback(JSON.parse(xhttp.responseText));
 				}
 			}
+		} catch (err) {
+			console.log("GET request Failed: " + err);			
+		}
+	}
+	list(service, source, filter) {
+		try {
+			var xhttp = new XMLHttpRequest();
+			var url = new URL(this.host + service + "/v1/" + source);
+			if (filter != undefined) {
+				url.searchParams.set("_filter", JSON.stringify(filter));
+			}
+			xhttp.open("GET", url, false);
+			xhttp.setRequestHeader("Authorization", "Bearer " + this.token);
+			xhttp.responseType = "json";
+			xhttp.send();
+			if (xhttp.status < 200 || xhttp.status >= 300) {
+				throw xhttp.getResponseHeader("x-odsl-error");
+			}
+			return JSON.parse(xhttp.responseText);
+		} catch (err) {
+			console.log("GET request Failed: " + err);			
+		}
+	}
+	update(service, source, body) {
+		try {
+			var xhttp = new XMLHttpRequest();
+			var url = new URL(this.host + service + "/v1/" + source);
+			xhttp.open("POST", url, false);
+			xhttp.setRequestHeader("Authorization", "Bearer " + this.token);
+			xhttp.responseType = "json";
+			xhttp.send(JSON.stringify(body));
+			if (xhttp.status < 200 || xhttp.status >= 300) {
+				throw xhttp.getResponseHeader("x-odsl-error");
+			}
+			return JSON.parse(xhttp.responseText);
 		} catch (err) {
 			console.log("GET request Failed: " + err);			
 		}
